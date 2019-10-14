@@ -1,9 +1,11 @@
 <template>
   <ant-layout class="lo-frame">
-    <ant-header class="hd">header</ant-header>
+    <ant-header class="hd">
+      <custom-header></custom-header>
+    </ant-header>
     <ant-layout class="lo-middle">
       <ant-sider class="sd">left sidebar</ant-sider>
-      <ant-content class="ct">
+      <ant-content class="ctt">
         <ant-button>确定</ant-button>
       </ant-content>
     </ant-layout>
@@ -14,6 +16,7 @@
 <script>
 import { Layout } from "ant-design-vue";
 import Button from "../components/base/Button";
+import CustomHeader from "../components/layout/Header";
 const { Header, Content, Footer, Sider } = Layout;
 
 export default {
@@ -24,15 +27,19 @@ export default {
     AntContent: Content,
     AntFooter: Footer,
     AntSider: Sider,
-    AntButton: Button
+    AntButton: Button,
+    AntHeader: Header,
+    CustomHeader,
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .hd {
-  background-color: #9c9;
+  background-color: #fff;
+  padding: 0;
   height: 60px;
+  margin-left: 200px;
 }
 .sd {
   overflow: auto;
@@ -41,11 +48,8 @@ export default {
   flex-shrink: 0;
   left: 0;
 }
-.ct {
-  left: 200px;
-  background-color: #9cc;
+.ctt {
   flex-grow: 1;
-  width: 600px;
   overflow: auto;
 }
 
