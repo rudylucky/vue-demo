@@ -10,7 +10,7 @@
       <ant-icon class="ic-shrink" type="setting" />设置
     </span>
     <span class="ct-max right">
-      <ant-icon class="ic-shrink" type="menu-fold" />全屏
+      <ant-icon class="ic-shrink" type="fullscreen" />全屏
     </span>
   </div>
 </template>
