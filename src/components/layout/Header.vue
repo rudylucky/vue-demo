@@ -9,7 +9,7 @@
     <span class="ct-setting right">
       <ant-icon class="ic-shrink" type="setting" />设置
     </span>
-    <span class="ct-max right">
+    <span class="ct-max right" @click="toggleFullScreen">
       <ant-icon class="ic-shrink" type="fullscreen" />全屏
     </span>
   </div>
@@ -21,14 +21,22 @@ export default {
   name: "custom-header",
   components: {
     AntIcon: Icon
+  },
+  methods: {
+    toggleFullScreen: function() {
+      document.fullscreenElement
+        ? document.exitFullscreen()
+        : document.documentElement.requestFullscreen()
+
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .ct {
-  background-color: #fff;
   span {
+    user-select: none;
     display: inline-block;
     height: 100%;
     width: 80px;

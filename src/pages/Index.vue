@@ -1,15 +1,15 @@
 <template>
   <ant-layout class="lo-frame">
-    <ant-header class="hd">
-      <custom-header></custom-header>
-    </ant-header>
+    <ant-sider class="sd">left sidebar</ant-sider>
     <ant-layout class="lo-middle">
-      <ant-sider class="sd">left sidebar</ant-sider>
+      <ant-header class="hd">
+        <custom-header></custom-header>
+      </ant-header>
       <ant-content class="ctt">
-        <ant-button>确定</ant-button>
+        <router-view></router-view>
       </ant-content>
+      <ant-footer class="ft">footer</ant-footer>
     </ant-layout>
-    <ant-footer class="ft">footer</ant-footer>
   </ant-layout>
 </template>
 
@@ -35,33 +35,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.lo-frame {
+  height: 100%;
+}
 .hd {
   background-color: #fff;
   padding: 0;
   height: 60px;
-  margin-left: 200px;
 }
 .sd {
   overflow: auto;
-  background-color: #cc9;
+  background-color: #13C2C2;
   height: 100%;
   flex-shrink: 0;
   left: 0;
 }
 .ctt {
-  flex-grow: 1;
   overflow: auto;
-}
-
-.ft {
-  background-color: #99c;
-}
-
-.lo-frame {
-  height: 100%;
-}
-.lo-middle {
-  width: 100%;
-  display: flex;
+  background-color: #fff;
+  margin: 25px 25px 0;
 }
 </style>
