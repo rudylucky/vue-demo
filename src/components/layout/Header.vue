@@ -1,8 +1,5 @@
 <template>
   <div class="ct">
-    <span class="ct-shrink">
-      <ant-icon class="ic-shrink" type="menu-fold" />
-    </span>
     <span class="ct-logout right">
       <ant-icon class="ic-shrink" type="logout" />退出
     </span>
@@ -26,14 +23,20 @@ export default {
     toggleFullScreen: function() {
       document.fullscreenElement
         ? document.exitFullscreen()
-        : document.documentElement.requestFullscreen()
-
+        : document.documentElement.requestFullscreen();
+    },
+    toggleMenuCollapsed: function() {
+      this.$emit("toggleMenuCollapsed");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.sd {
+  overflow: auto;
+  background-color: #13c2c2;
+}
 .ct {
   span {
     user-select: none;

@@ -1,35 +1,45 @@
 <template>
-  <ant-layout class="lo-frame">
-    <ant-sider class="sd">left sidebar</ant-sider>
-    <ant-layout class="lo-middle">
-      <ant-header class="hd">
-        <custom-header></custom-header>
-      </ant-header>
-      <ant-content class="ctt">
+  <a-layout class="lo-frame">
+    <my-sider :menuCollapsed="menuCollapsed" class="sd" />
+    <a-layout class="lo-middle">
+      <a-header class="hd">
+        <my-header @toggleMenuCollapsed="toggleMenuCollapsed"></my-header>
+      </a-header>
+      <a-content class="ctt">
         <router-view></router-view>
-      </ant-content>
-      <ant-footer class="ft">footer</ant-footer>
-    </ant-layout>
-  </ant-layout>
+      </a-content>
+        <my-footer class="ft"></my-footer>
+    </a-layout>
+  </a-layout>
 </template>
 
 <script>
 import { Layout } from "ant-design-vue";
-import Button from "../components/base/Button";
-import CustomHeader from "../components/layout/Header";
-const { Header, Content, Footer, Sider } = Layout;
+import MyHeader from "../components/layout/Header";
+import MySider from "../components/layout/MySider";
+import MyFooter from "../components/layout/Footer";
+const { Header, Content, Footer } = Layout;
 
 export default {
   name: "index",
   components: {
-    AntLayout: Layout,
-    Antlayout: Header,
-    AntContent: Content,
-    AntFooter: Footer,
-    AntSider: Sider,
-    AntButton: Button,
-    AntHeader: Header,
-    CustomHeader,
+    ALayout: Layout,
+    AContent: Content,
+    AFooter: Footer,
+    AHeader: Header,
+    MyHeader,
+    MySider,
+    MyFooter
+  },
+  data: function() {
+    return {
+      menuCollapsed: this.menuCollapsed
+    };
+  },
+  methods: {
+    toggleMenuCollapsed: function() {
+      this.menuCollapsed = !this.menuCollapsed;
+    }
   }
 };
 </script>
@@ -37,22 +47,20 @@ export default {
 <style lang="scss" scoped>
 .lo-frame {
   height: 100%;
-}
-.hd {
-  background-color: #fff;
-  padding: 0;
-  height: 60px;
-}
-.sd {
-  overflow: auto;
-  background-color: #13C2C2;
-  height: 100%;
-  flex-shrink: 0;
-  left: 0;
-}
-.ctt {
-  overflow: auto;
-  background-color: #fff;
-  margin: 25px 25px 0;
+  .hd {
+    background-color: #fff;
+    padding: 0;
+    height: 60px;
+  }
+  .sd {
+    overflow: auto;
+    background-color: #13c2c2;
+  }
+  .ctt {
+    overflow: auto;
+    background-color: #fff;
+    margin: 25px 25px 0;
+    padding: 20px;
+  }
 }
 </style>
