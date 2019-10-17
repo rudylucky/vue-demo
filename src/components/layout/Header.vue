@@ -32,9 +32,6 @@ export default {
     toggleMenuCollapsed: function() {
       this.$emit("toggleMenuCollapsed");
     }
-  },
-  beforeMount() {
-    console.log(this.$props.menuCollapsed);
   }
 };
 </script>
