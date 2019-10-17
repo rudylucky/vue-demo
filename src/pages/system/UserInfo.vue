@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <a-table :columns="columns" :dataSource="data" bordered size="small" class="table" />
-  </div>
+  <search-table :data="data" :columns="columns" />
 </template>
 
 <script>
-import { Table, Button } from "ant-design-vue";
+import SearchTable from "../../components/base/SearchTable";
+
 const data = [
   {
     key: "1",
@@ -41,41 +40,45 @@ const data = [
   }
 ];
 
+const columns = [
+  {
+    title: "姓名",
+    dataIndex: "name",
+    sorter: true,
+    search: true,
+    width: 120
+  },
+  {
+    title: "年龄",
+    dataIndex: "age",
+    sorter: true,
+    search: true,
+    width: 80
+  },
+  {
+    title: "固定电话",
+    dataIndex: "tel",
+    search: true,
+    width: 150
+  },
+  {
+    title: "移动电话",
+    dataIndex: "phone",
+    search: true,
+    width: 150
+  },
+  {
+    title: "地址",
+    dataIndex: "address"
+  }
+];
+
 export default {
   name: "user-info",
   components: {
-    ATable: Table,
-    Button: Button
+    SearchTable
   },
   data() {
-    const columns = [
-      {
-        title: "姓名",
-        dataIndex: "name",
-        sorter: true,
-        width: 120
-      },
-      {
-        title: "年龄",
-        dataIndex: "age",
-        sorter: true,
-        width: 80
-      },
-      {
-        title: "固定电话",
-        dataIndex: "tel",
-        width: 150
-      },
-      {
-        title: "移动电话",
-        dataIndex: "phone",
-        width: 150
-      },
-      {
-        title: "地址",
-        dataIndex: "address"
-      }
-    ];
     return {
       data,
       columns
@@ -85,6 +88,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.table {
-}
 </style>

@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ant-table-body {
+  margin: 0;
+}
 .sd {
   overflow: auto;
   background-color: #13c2c2;
