@@ -3,7 +3,7 @@
     <my-sider :menuCollapsed="menuCollapsed" class="sd" />
     <a-layout class="lo-middle">
       <a-header class="hd">
-        <my-header @toggleMenuCollapsed="toggleMenuCollapsed"></my-header>
+        <my-header :menuCollapsed="menuCollapsed" @toggleMenuCollapsed="toggleMenuCollapsed"></my-header>
       </a-header>
       <a-content class="ctt">
         <router-view></router-view>
@@ -18,14 +18,13 @@ import { Layout } from "ant-design-vue";
 import MyHeader from "../components/layout/Header";
 import MySider from "../components/layout/MySider";
 import MyFooter from "../components/layout/Footer";
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 export default {
   name: "index",
   components: {
     ALayout: Layout,
     AContent: Content,
-    AFooter: Footer,
     AHeader: Header,
     MyHeader,
     MySider,
@@ -33,7 +32,7 @@ export default {
   },
   data: function() {
     return {
-      menuCollapsed: this.menuCollapsed
+      menuCollapsed: false
     };
   },
   methods: {

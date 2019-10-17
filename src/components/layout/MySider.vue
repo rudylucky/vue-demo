@@ -1,5 +1,5 @@
 <template>
-  <a-sider width="100px">
+  <a-sider :width="menuCollapsed ? 0 : '100px'">
     <div class="ct-frame">
       <div class="ct-module">
         <div class="ct-logo"></div>
@@ -41,9 +41,6 @@
         </div>
       </div>
     </div>
-    <div class="ct-shrink">
-      <a-icon class="ic-shrink" type="menu-fold" />
-    </div>
   </a-sider>
 </template>
 
@@ -57,16 +54,16 @@ export default {
     AIcon: Icon,
     ASider: Sider
   },
+  props: ['menuCollapsed'],
   data() {
     return {
       showPage: false,
       selectedModule: null,
-      menuCollapsed: false
     };
   },
   methods: {
     toggleMenuCollapsed() {
-      this.MenuCollapsed = !this.MenuCollapsed;
+      this.menuCollapsed = !this.menuCollapsed;
     },
     handleMouseIn(page) {
       this.showPage = true;
@@ -84,9 +81,8 @@ export default {
 
 <style lang="scss" scoped>
 .ct-shrink {
-  position: fixed;
-  top: 0;
-  left: 100px;
+  position: relative;
+  z-index: 120;
   user-select: none;
   height: 60px;
   width: 80px;

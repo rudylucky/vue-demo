@@ -1,6 +1,6 @@
 <template>
   <a-footer class="ft">
-    <span>MES，让生产更加轻松</span>
+    <span>MES</span>
   </a-footer>
 </template>
 

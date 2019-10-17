@@ -6,24 +6,43 @@
         <a-input class="input-search" size="small" />
       </div>
     </div>
-    <a-table :columns="columns" :dataSource="data" bordered size="small" class="table" />
+    <a-locale-provider :locale="locale">
+      <a-table
+        :columns="columns"
+        :dataSource="data"
+        bordered
+        size="small"
+        class="table"
+        :pagination="pagination"
+      />
+    </a-locale-provider>
   </div>
 </template>
 
 <script>
-import { Table, Button, Input } from "ant-design-vue";
+import { Table, Button, Input, LocaleProvider } from "ant-design-vue";
+import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
 
 export default {
   name: "user-info",
   components: {
     ATable: Table,
     AButton: Button,
-    AInput: Input
+    AInput: Input,
+    ALocaleProvider: LocaleProvider
   },
   data() {
     const searchItems = this.$props.columns.filter(v => v.search === true);
     return {
-      searchItems
+      locale: zh_CN,
+      searchItems,
+      pagination: {
+        showSizeChanger: true,
+        showQuickJumper: true,
+        size: "small",
+        showTotal: total => `共 ${total} 条数据`,
+        total: this.$props.columns.length
+      }
     };
   },
   props: ["data", "columns"]

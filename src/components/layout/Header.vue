@@ -1,13 +1,16 @@
 <template>
   <div class="ct">
+    <span class="ct-shrink" @click="toggleMenuCollapsed">
+      <a-icon class="ic-shrink" :type="menuCollapsed ? 'menu-unfold' : 'menu-fold'" />
+    </span>
     <span class="ct-logout right">
-      <ant-icon class="ic-shrink" type="logout" />退出
+      <a-icon class="ic-shrink" type="logout" />退出
     </span>
     <span class="ct-setting right">
-      <ant-icon class="ic-shrink" type="setting" />设置
+      <a-icon class="ic-shrink" type="setting" />设置
     </span>
     <span class="ct-max right" @click="toggleFullScreen">
-      <ant-icon class="ic-shrink" type="fullscreen" />全屏
+      <a-icon class="ic-shrink" type="fullscreen" />全屏
     </span>
   </div>
 </template>
@@ -17,8 +20,9 @@ import { Icon } from "ant-design-vue";
 export default {
   name: "custom-header",
   components: {
-    AntIcon: Icon
+    AIcon: Icon
   },
+  props: ['menuCollapsed'],
   methods: {
     toggleFullScreen: function() {
       document.fullscreenElement
@@ -28,6 +32,9 @@ export default {
     toggleMenuCollapsed: function() {
       this.$emit("toggleMenuCollapsed");
     }
+  },
+  beforeMount() {
+    console.log(this.$props.menuCollapsed);
   }
 };
 </script>
@@ -50,7 +57,6 @@ export default {
     cursor: pointer;
     font-size: 16px;
     .ic-shrink {
-      color: #aaa;
       margin-right: 5px;
     }
   }
