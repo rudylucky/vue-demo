@@ -15,9 +15,9 @@
 
 <script>
 import { Layout } from "ant-design-vue";
-import MyHeader from "../components/layout/Header";
-import MySider from "../components/layout/MySider";
-import MyFooter from "../components/layout/Footer";
+import MyHeader from "@/components/layout/Header";
+import MySider from "@/components/layout/my-sider/MySider";
+import MyFooter from "@/components/layout/Footer";
 const { Header, Content } = Layout;
 
 export default {

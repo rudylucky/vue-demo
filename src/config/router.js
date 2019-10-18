@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Index from "../pages/Index";
 import MenuSetting from "../pages/system/MenuSetting";
-import UserInfo from '../pages/system/UserInfo';
+import UserInfo from '../pages/system/user-info/UserInfo';
 import PageOnly from '../pages/Page';
 
 Vue.use(VueRouter);

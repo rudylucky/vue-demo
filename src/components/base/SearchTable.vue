@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-collapse defaultActiveKey="1" :bordered="false">
+    <a-collapse :bordered="false">
       <template v-slot:expandIcon="props">
         <a-icon type="caret-right" :rotate="props.isActive ? 90 : 0" />
       </template>
@@ -15,8 +15,12 @@
     </a-collapse>
     <div class="container-search-button">
       <a-button class="button-op" type="primary">新增</a-button>
-      <a-button class="button-op" type="primary">编辑</a-button>
-      <a-button class="button-op" type="danger">删除选中</a-button>
+      <a-button
+        class="button-op"
+        type="danger"
+        :disabled="this.selected.length == 0"
+        @click="deleteSelected"
+      >删除</a-button>
       <a-button class="button-search">重置</a-button>
       <a-button class="button-search" type="primary">搜索</a-button>
     </div>
@@ -24,16 +28,21 @@
       <a-table
         :rowSelection="rowSelection"
         :scroll="{x: 1000}"
-        :columns="columns"
-        :dataSource="data"
+        :columns="tableProps.columns"
+        :dataSource="tableData"
         bordered
         size="small"
         class="table"
         :pagination="pagination"
       >
-        <template slot="operation">
+        <template slot="operation" slot-scope="record">
           <a style="margin-right: 10px;">编辑</a>
-          <a>删除</a>
+          <a-popconfirm
+            title="确定要删除该项吗?"
+            @confirm="deleteCurrent([record.key])"
+          >
+            <a>删除</a>
+          </a-popconfirm>
         </template>
       </a-table>
     </a-locale-provider>
@@ -47,6 +56,7 @@ import {
   Input,
   Checkbox,
   LocaleProvider,
+  Popconfirm,
   Collapse
 } from "ant-design-vue";
 import zh_CN from "ant-design-vue/lib/locale-provider/zh_CN";
@@ -55,6 +65,7 @@ const { Panel } = Collapse;
 export default {
   name: "user-info",
   components: {
+    APopconfirm: Popconfirm,
     ATable: Table,
     AButton: Button,
     AInput: Input,
@@ -64,42 +75,49 @@ export default {
     ACheckbox: Checkbox
   },
   data() {
-    const rowSelection = !this.$props.rowSelection ? null : {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(
-          `selectedRowKeys: ${selectedRowKeys}`,
-          "selectedRows: ",
-          selectedRows
-        );
-      },
-      onSelect: (record, selected, selectedRows) => {
-        console.log(record, selected, selectedRows);
-      },
-      onSelectAll: (selected, selectedRows, changeRows) => {
-        console.log(selected, selectedRows, changeRows);
-      }
-    };
+    const rowSelection = !this.$props.tableProps.rowSelection
+      ? null
+      : {
+          onChange: (selectedRowKeys, selectedRows) => {},
+          onSelect: (record, selected, selectedRows) => {
+            this.selected = selectedRows.map(v => v.dataIndex || v.key);
+          },
+          onSelectAll: (selected, selectedRows, changeRows) => {
+            this.selected = selectedRows.map(v => v.dataIndex || v.key);
+          }
+        };
 
-    console.log(rowSelection);
-
-    const searchItems = this.$props.columns.filter(v => v.search === true);
+    const searchItems = this.$props.tableProps.columns.filter(
+      v => v.search === true
+    );
+    const tableData = this.$props.tableProps.getMethod();
     return {
       selected: [],
       locale: zh_CN,
       searchItems,
       rowSelection,
+      tableData,
       pagination: {
         showSizeChanger: true,
         showQuickJumper: true,
         showTotal: total => `共 ${total} 条数据`,
-        total: this.$props.data.length
+        total: tableData.length
       }
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    deleteCurrent(id) {
+      this.$props.tableProps.deleteMethod(id);
+      this.tableData = this.$props.tableProps.getMethod();
+    },
+    deleteSelected() {
+      this.$props.tableProps.deleteMethod(this.selected);
+      this.tableData = this.$props.tableProps.getMethod();
+    }
+  },
   beforeMount() {
-    const columns = this.$props.columns;
+    const columns = this.$props.tableProps.columns;
     const OpExist = columns.findIndex(v => v.key === "operation") < 0;
     if (OpExist && this.$props.tableProps.operation) {
       columns.push({
@@ -113,7 +131,7 @@ export default {
       });
     }
   },
-  props: ["data", "columns", "tableProps"]
+  props: ["tableProps"]
 };
 </script>
 
