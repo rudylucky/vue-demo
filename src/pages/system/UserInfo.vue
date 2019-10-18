@@ -1,5 +1,5 @@
 <template>
-  <search-table :data="data" :columns="columns" />
+  <search-table :tableProps="tableProps" :data="data" :columns="columns"/>
 </template>
 
 <script>
@@ -46,7 +46,7 @@ const columns = [
     dataIndex: "name",
     sorter: true,
     search: true,
-    width: 120
+    width: 120,
   },
   {
     title: "年龄",
@@ -73,6 +73,11 @@ const columns = [
   }
 ];
 
+const tableProps = {
+  selection: true,
+  operation: true
+};
+
 export default {
   name: "user-info",
   components: {
@@ -81,7 +86,8 @@ export default {
   data() {
     return {
       data,
-      columns
+      columns,
+      tableProps
     };
   }
 };
