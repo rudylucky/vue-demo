@@ -1,5 +1,5 @@
 <template>
-  <search-table :tableProps="tableProps" :data="data" :columns="columns"/>
+  <search-table :tableProps="tableProps" :data="data" :columns="columns" />
 </template>
 
 <script>
@@ -75,7 +75,8 @@ const columns = [
 
 const tableProps = {
   selection: true,
-  operation: true
+  operation: true,
+  rowSelection: true
 };
 
 export default {

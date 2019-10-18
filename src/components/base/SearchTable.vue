@@ -64,6 +64,24 @@ export default {
     ACheckbox: Checkbox
   },
   data() {
+    const rowSelection = !this.$props.rowSelection ? null : {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(
+          `selectedRowKeys: ${selectedRowKeys}`,
+          "selectedRows: ",
+          selectedRows
+        );
+      },
+      onSelect: (record, selected, selectedRows) => {
+        console.log(record, selected, selectedRows);
+      },
+      onSelectAll: (selected, selectedRows, changeRows) => {
+        console.log(selected, selectedRows, changeRows);
+      }
+    };
+
+    console.log(rowSelection);
+
     const searchItems = this.$props.columns.filter(v => v.search === true);
     return {
       selected: [],
